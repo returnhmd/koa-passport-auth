@@ -1,39 +1,12 @@
 import Router from 'koa-router';
-import passport from 'koa-passport';
+
+import appRoutes from './approutes.mjs';
+import authRoutes from './authroutes.mjs';
 
 const router = new Router();
 
-router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
+router.use('/auth', authRoutes);
 
-router.get(
-  '/google/redirect',
-  passport.authenticate('google', {
-    successRedirect: '/app',
-    failureRedirect: '/',
-  }),
-);
-
-router.get('/', async ctx => {
-  await ctx.render('main');
-});
-
-router.get(
-  '/app',
-  async (ctx, next) => {
-    console.log('middleware');
-    if (ctx.isUnauthenticated()) {
-      ctx.throw(403, 'You bastard!');
-    }
-    await next();
-  },
-  async ctx => {
-    await ctx.render('app');
-  },
-);
-
-router.get('/logout', async ctx => {
-  ctx.logout();
-  ctx.redirect('/');
-});
+router.use(appRoutes);
 
 export default router;

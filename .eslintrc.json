@@ -1,3 +1,14 @@
 {
-  "extends": ["airbnb-base", "prettier"]
+  "extends": ["airbnb-base", "prettier"],
+  "settings": {
+    "import/extensions": [
+      "error",
+      "always",
+      {
+        ".js": "never",
+        ".jsx": "never",
+        ".mjs": "always"
+      }
+    ]
+  }
 }

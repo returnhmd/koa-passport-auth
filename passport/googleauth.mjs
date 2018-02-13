@@ -1,7 +1,7 @@
 import passport from 'koa-passport';
 import Google from 'passport-google-oauth';
 
-import { googleOAuth as config } from '../config.mjs';
+import { keys } from '../config.mjs';
 import User from '../models/usermodel.mjs';
 
 passport.serializeUser((user, done) => {
@@ -23,9 +23,9 @@ passport.deserializeUser(async (id, done) => {
 passport.use(
   new Google.OAuth2Strategy(
     {
-      clientID: config.clientID,
-      clientSecret: config.clientSecret,
-      callbackURL: '/google/redirect',
+      clientID: keys.googleOAuth.clientID,
+      clientSecret: keys.googleOAuth.clientSecret,
+      callbackURL: '/auth/google/redirect',
     },
     async (accessToken, refreshToken, profile, cb) => {
       try {
@@ -38,7 +38,7 @@ passport.use(
             googleId: profile.id,
           });
           await newUser.save();
-          cb(null, user);
+          cb(null, newUser);
         }
       } catch (err) {
         cb(err);

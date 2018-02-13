@@ -9,7 +9,7 @@ import path from 'path';
 import './passport/googleauth.mjs';
 import './mongodb.mjs';
 
-import * as config from './config.mjs';
+import { keys, config } from './config';
 import r from './routes/index.mjs';
 
 const app = new Koa();
@@ -18,7 +18,7 @@ app.use(views(`${path.resolve()}/views`, config.views));
 app.use(bodyParser());
 app.use(logger());
 
-app.keys = ['123'];
+app.keys = keys.sessionKeys;
 app.use(session(config.session, app));
 
 app.use(passport.initialize());
