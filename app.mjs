@@ -1,22 +1,25 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-import logger from 'koa-logger';
-import session from 'koa-session';
 import passport from 'koa-passport';
+import session from 'koa-session';
+import logger from 'koa-logger';
 import views from 'koa-views';
 import path from 'path';
 
-import './passport/googleauth.mjs';
-import './mongodb.mjs';
+import './passportauth';
+import './mongodb';
 
+import { errorHandler } from './middlewares';
 import { keys, config } from './config';
-import r from './routes/index.mjs';
+import r from './routes';
 
 const app = new Koa();
 
 app.use(views(`${path.resolve()}/views`, config.views));
 app.use(bodyParser());
 app.use(logger());
+
+app.use(errorHandler);
 
 app.keys = keys.sessionKeys;
 app.use(session(config.session, app));

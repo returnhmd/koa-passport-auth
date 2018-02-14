@@ -6,28 +6,37 @@ html(lang="en")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
     title #{title}
     style(type="text/css").
-      ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        width: 200px;
-        background-color: #f1f1f1;
-        margin: auto;
+      body {
+        text-align: center;
       }
-      li a {
-          display: block;
-          color: white;
-          padding: 8px 16px;
-          text-decoration: none;
-          text-align: center;
+      a {
+        color: white;
+        padding: 5px;
+        text-decoration: none;
       }
   body
-    ul
-      li
-        a(href="/auth/google" style="background-color: tomato") Google
-      li
-        a(style='background-color: royalblue') Facebook
-      li
-        a(style='background-color: deepskyblue') Twitter
-      
+    h1 UNAUTHENTICATED
+    p
+    a(href="/auth/google" style="background-color: tomato") Google
+    p
+    a(href="/auth/facebook" style='background-color: royalblue') Facebook
+    p
+    a(href="/auth/twitter" style='background-color: deepskyblue') Twitter
+    
+    //- case type 
+    //-   when  'auth'
+    //-     h1 AUTHENTICATED
+    //-     img(src=photoUrl)
+    //-     h1 Hello, #{username}
+    //-   when 'unauth'
+    //-     h1 UNAUTHENTICATED
+    //-     p
+    //-     a(href="/auth/google" style="background-color: tomato") Google
+    //-     p
+    //-     a(href="/auth/facebook" style='background-color: royalblue') Facebook
+    //-     p
+    //-     a(href="/auth/twitter" style='background-color: deepskyblue') Twitter
+    //-   when 'error'
+    //-     h1 ERROR
+
 

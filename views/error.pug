@@ -11,18 +11,12 @@ html(lang="en")
       }
       a {
         color: white;
-        background-color: grey;
         padding: 5px;
         text-decoration: none;
       }
-      img {
-        border-radius: 50%;
-      }
   body
-    h1 AUTHENTICATED
+    h1 Error
     p
-    img(src=photoUrl)
+    strong #{statusCode}
     p
-    strong Hello, #{username}!
-    p
-    a(href="/logout") Logout
+    strong #{message}

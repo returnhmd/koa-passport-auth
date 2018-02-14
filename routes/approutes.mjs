@@ -1,27 +1,20 @@
 import Router from 'koa-router';
 
+import { withAuth } from '../middlewares';
+
 const router = new Router();
 
 router.get('/', async ctx => {
   await ctx.render('main.pug');
 });
 
-router.get(
-  '/home',
-  async (ctx, next) => {
-    console.log('middleware');
-    if (ctx.isUnauthenticated()) {
-      ctx.throw(403, 'Bad boy');
-    }
-    await next();
-  },
-  async ctx => {
-    await ctx.render('home.pug', {
-      title: 'home',
-      username: ctx.state.user.username,
-    });
-  },
-);
+router.get('/home', withAuth, async ctx => {
+  await ctx.render('home.pug', {
+    title: 'home',
+    username: ctx.state.user.username,
+    photoUrl: ctx.state.user.photoUrl,
+  });
+});
 
 router.get('/logout', async ctx => {
   ctx.logout();

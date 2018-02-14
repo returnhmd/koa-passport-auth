@@ -1,13 +1,17 @@
 {
   "extends": ["airbnb-base", "prettier"],
   "settings": {
+    "import/resolver": {
+      "node": [".mjs", ".js"]
+    }
+  },
+  "rules": {
     "import/extensions": [
       "error",
       "always",
       {
-        ".js": "never",
-        ".jsx": "never",
-        ".mjs": "always"
+        "js": "never",
+        "mjs": "never"
       }
     ]
   }
