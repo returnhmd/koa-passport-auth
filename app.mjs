@@ -6,20 +6,20 @@ import logger from 'koa-logger';
 import views from 'koa-views';
 import path from 'path';
 
-import './passportauth';
-import './mongodb';
+import './src/passportauth';
+import './src/mongodb';
 
-import { errorHandler } from './middlewares';
+import { errorHandler } from './src/middlewares';
 import { keys, config } from './config';
-import r from './routes';
+import r from './src/routes';
 
 const app = new Koa();
+
+app.use(errorHandler());
 
 app.use(views(`${path.resolve()}/views`, config.views));
 app.use(bodyParser());
 app.use(logger());
-
-app.use(errorHandler);
 
 app.keys = keys.sessionKeys;
 app.use(session(config.session, app));

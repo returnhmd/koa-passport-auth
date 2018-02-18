@@ -12,6 +12,15 @@ router.get(
   }),
 );
 
+router.get('/facebook', passport.authenticate('facebook'));
+router.get(
+  '/facebook/redirect',
+  passport.authenticate('facebook', {
+    successRedirect: '/home',
+    failureRedirect: '/',
+  }),
+);
+
 router.get('/twitter', passport.authenticate('twitter'));
 router.get(
   '/twitter/redirect',

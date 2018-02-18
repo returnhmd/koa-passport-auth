@@ -8,6 +8,10 @@ export const keys = {
     consumerKey: '',
     consumerSecret: '',
   },
+  facebook: {
+    clientID: '',
+    clientSecret: '',
+  },
 };
 
 export const config = {

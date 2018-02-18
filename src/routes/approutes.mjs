@@ -8,7 +8,7 @@ router.get('/', async ctx => {
   await ctx.render('main.pug');
 });
 
-router.get('/home', withAuth, async ctx => {
+router.get('/home', withAuth(), async ctx => {
   await ctx.render('home.pug', {
     title: 'home',
     username: ctx.state.user.username,
