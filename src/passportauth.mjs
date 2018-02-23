@@ -2,7 +2,6 @@ import passport from 'koa-passport';
 import Google from 'passport-google-oauth';
 import Twitter from 'passport-twitter';
 import Facebook from 'passport-facebook';
-import createError from 'http-errors';
 
 import { keys } from '../config';
 import User from './usermodel';
@@ -15,7 +14,9 @@ passport.deserializeUser(async (id, done) => {
   try {
     const user = await User.findOne({ _id: id });
     if (!user) {
-      done(createError(418));
+      const customError = new Error("Cookie isn't valid");
+      customError.status = 418;
+      done(customError);
     }
     done(null, user);
   } catch (err) {
@@ -31,6 +32,7 @@ passport.use(
       clientID: keys.facebook.clientID,
       clientSecret: keys.facebook.clientSecret,
       callbackURL: '/auth/facebook/redirect',
+      profileFields: ['id', 'displayName', 'photos'],
     },
     async (accessToken, refreshToken, profile, cb) => {
       try {
@@ -41,8 +43,8 @@ passport.use(
           const newUser = new User({
             origin: 'facebook',
             authId: profile._json.id,
-            username: profile._json.displayName,
-            photoUrl: profile._json.image.url,
+            username: profile._json.name,
+            photoUrl: profile._json.picture.data.url,
           });
           await newUser.save();
           cb(null, newUser);

@@ -1,21 +1,21 @@
 export const keys = {
   sessionKeys: ['secret'],
   google: {
-    clientID: '',
-    clientSecret: '',
+    clientID: 'secret',
+    clientSecret: 'secret',
   },
   twitter: {
-    consumerKey: '',
-    consumerSecret: '',
+    consumerKey: 'secret',
+    consumerSecret: 'secret',
   },
   facebook: {
-    clientID: '',
-    clientSecret: '',
+    clientID: 'secret',
+    clientSecret: 'secret',
   },
 };
 
 export const config = {
   session: {},
   views: {},
-  mongoConnectStr: '',
+  mongoConnectStr: 'mongodb://localhost/test',
 };
